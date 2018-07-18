@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Prospectos Activos</h1>
+
+    <form method='GET' action='/prospectos/activos/'>
+      <input type='text' value="{{request.GET.q}}" name='q' placeholder='Buscar un prospecto activo...'>
+    </form>
+    
+    {% if object_list %}
+    <ul>
+
+      {% for persona in object_list %}
+      <li>
+        {{ persona.get_status_display }} - <a href="{{ persona.get_absolute_url }}">{{ persona.apaterno }}</a>, {{persona.nombre}}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>No hay prospectos.</p>
+    {% endif %}
+{% endblock %}

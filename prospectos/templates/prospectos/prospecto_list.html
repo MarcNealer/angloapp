@@ -1,0 +1,127 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Todos los Prospectos</h1>
+  
+    {% if idioma_list %}
+    <div class="dropdown">
+      <button class="btn btn-{% if 'filteri' in request.GET %}warning{% else %}primary{% endif %} dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Por idioma
+      </button>
+        
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="http://127.0.0.1:5050/prospectos/prospectos/">Todos</a>
+    {% for idioma in idioma_list %}
+      
+        <a class="dropdown-item" href="?filteri={{idioma.pk}}">{{idioma.name}}</a>         
+      
+    {% endfor %}  
+        </div>
+    </div>
+    
+    <div class="dropdown">
+      <button class="btn btn-{% if 'pub_dater' in request.GET %}warning{% elif 'pub_datel' in request.GET %}warning{% else %}primary{% endif %} dropdown-toggle my-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Por fecha
+      </button>
+        
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a
+            href="?pub_dater=True"
+            class="dropdown-item">Más reciente
+        </a>
+        <a class="dropdown-item" href="?pub_datel=True">Menos reciente</a>
+      </div>
+    </div>
+    
+    <div class="dropdown">
+      <button class="btn btn-{% if 'accionr' in request.GET %}warning{% elif 'accionl' in request.GET %}warning{% else %}primary{% endif %} dropdown-toggle my-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Por Acción
+      </button>
+        
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a
+            href="?accionr=True"
+            class="dropdown-item">Acción más reciente
+        </a>
+        <a
+            href="?accionl=True"
+            class="dropdown-item">Acción menos reciente
+        </a>
+      </div>
+    </div>
+    
+
+        <!--
+        
+        <script>
+      window.onload = function () {
+    var a = document.getElementById('tweeterUrl');
+       a.href = a.href + document.URL.lastIndexOf('/');
+     }
+        </script>
+        
+        <script>
+      window.onload = function () {
+   var a = document.getElementById('tweeterUrl');
+     a.href = a.href + document.URL;
+    }
+  //  window.alert(this.href.substr(this.href.lastIndexOf('/') + 1));
+        </script>
+        
+      <script>
+      $(window).on('load', function() {
+      $(".dropdown-menu li a").click(function(){
+        
+  var selText = $(this).text();
+  $(this).parents('.dropdown').find('.dropdown-toggle').val(selText);
+});
+});
+          
+      </script>
+    -->
+  <!--
+    <script>
+    
+    function getSelectValue()
+    {
+        var selectedValue = document.getElementById("list").value;
+        console.log(selectedValue);
+    }
+    getSelectValue();
+    
+    </script>
+-->
+    
+    {% else %}
+      <p>No hay idiomas.</p>
+    {% endif %}
+    
+    <nav class="navbar navbar-light">  
+      <form class="form-inline" method='GET' action='/prospectos/prospectos/'>
+        <input class="form-control mr-sm-2" type='text' value="{{request.GET.q}}" name='q' placeholder='Buscar un prospecto...'>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <a href="http://127.0.0.1:5050/prospectos/prospectos/" class="btn btn-outline-info ml-sm-2">
+          <span class="glyphicon glyphicon-refresh"></span> Refresh
+        </a>
+      </form>
+    </nav>
+    
+
+    {% if object_list %}
+    <ul>
+      
+      <!--
+      if persona.id
+      -->
+
+      {% for persona in object_list %}
+      <li>
+        {{persona.id}} {{ persona.get_status_display }} - <a href="{{ persona.get_absolute_url }}">{{ persona.apaterno }}</a>, {{persona.nombre}} | {{persona.idioma}} | {% for accion in persona.prospectoaccion_set.all %} {% if forloop.last %}{{accion.accion_date|timesince }} | {{persona.id}}{% endif %}{% endfor %}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>No hay prospectos para esta búsqueda: <b>"{{request.GET.q}}"</b>.</p>
+    {% endif %}
+{% endblock %}

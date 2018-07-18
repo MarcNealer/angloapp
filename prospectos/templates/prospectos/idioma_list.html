@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Todos los Idiomas de Interés</h1>
+    
+    {% if idioma_list %}
+    <ul>
+
+      {% for idioma in idioma_list %}
+      <li>
+        {{idioma.name}}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>No hay idiomas.</p>
+    {% endif %}
+    
+{% endblock %}

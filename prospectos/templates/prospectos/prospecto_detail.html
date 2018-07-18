@@ -1,0 +1,50 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>{{ prospecto.nombre }} {{ prospecto.apaterno }} {{ prospecto.amaterno }}</h1>
+<h4><b>Status:</b> {{ prospecto.get_status_display }}</h4>
+<p><b>Cel:</b> {{ prospecto.cel }}   <b>Tel:</b> {{ prospecto.tel }} <b>Mail: </b>{{ prospecto.email }}</p>
+<p><b>Idioma de interés:</b> {{ prospecto.idioma }}</p>
+<p><b>Horario de interés:</b> {{ prospecto.horario }}</p>
+
+<p><b>Comentarios:</b> {{ prospecto.comentario }}</p>
+
+<a class="btn btn-info" href="{% url 'editar-prospecto' prospecto.pk %}">Editar Prospecto</a>
+{% if prospecto.status == 'p' %}
+<a class="btn btn-success" href="#">Inscribir</a>
+<!-- <li><a href="{% url 'nuevo-alumno' %}">Nuevo Alumno</a></li> -->
+<a class="btn btn-danger" href="{% url 'prospecto-desinteresar' prospecto.pk %}">Desinteresar</a>
+{% else %}
+<a class="btn btn-warning" href="{% url 'prospecto-reinteresar' prospecto.pk %}">Volver a Interesar</a>
+{% endif %}
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Acciones</h4>
+
+{% for accion in prospecto.prospectoaccion_set.all %}
+<hr>
+<p>{{accion.autor}} ({{accion.accion_date}})- <b>{{ accion.tipo_accion }}</b> - {{accion.descripcion}} | </p>
+{% endfor %}
+<hr>
+
+  <a href="{% url 'prospecto_accion' prospecto.id %}">Agregar Acción</a></p>
+  
+  <br />
+  <br />
+
+{% if prospecto.status == 'd' %}
+  <h4>Razón de desinterés</h4>
+
+  {% for razon in prospecto.prospectorazon_set.all %}
+  <hr>
+  <p>({{razon.accion_date}})- <b>{{razon.tipo_razon}}</b> - {{razon.comentario}}</p>
+  {% endfor %}
+  <hr>
+    <a href="{% url 'prospecto_razon' prospecto.id %}">Agregar Razón</a></p>
+{% else %}
+{% endif %}
+
+</div>
+
+{% endblock %}

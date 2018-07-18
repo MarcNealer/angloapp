@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<p>Agrega una acción para: <a href="{% url 'prospecto-detail' prospecto.pk %}">{{prospecto.nombre}}</a></p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+    
+</form>
+{% endblock %}
