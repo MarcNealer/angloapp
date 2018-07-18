@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>{{ alumno.nombre }}, {{ alumno.apaterno }}</h1>
+<h4><b>Fecha Nacimiento:</b> {{ alumno.fecha_nacimiento }}</h4>
+<p><b>Cel:</b> {{ alumno.cel }}   <b>Tel:</b> {{ alumno.tel }} <b>Email: </b>{{ alumno.email }}</p>
+
+<p> {{ alumno.membership_set.all }} </p>
+
+<a class="btn btn-success" href="{% url 'inscribir-alumno' alumno.pk %}">Inscribir Alumno</a> Button not working, I'll fix it later.
+
+<h2>Grupos y status del alumno</h2>
+{% for x in alumno.membership_set.all %}
+  <ul>
+    <li>{{ x.grupo }}, {{ x.grupo.idioma }}, {{ x.status }}  <a class="btn btn-danger" href="{% url 'remover-miembro' x.pk %}"> Delete</a></li>
+  </ul> 
+{% endfor %}
+  
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Todos los Grupos</h1>
+
+    <form method='GET' action='/grupos/grupos/'>
+      <input type='text' value="{{request.GET.q}}" name='q' placeholder='Buscar alumno...'>
+    </form>
+    
+    {% if object_list %}
+    <ul>
+
+      {% for grupo in object_list %}
+      <li>
+        <a href="{{ grupo.get_absolute_url }}">{{ grupo.nombre }}</a>, {{grupo.fecha_inicio}}, {{grupo.horario}}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>No hay grupos.</p>
+    {% endif %}
+{% endblock %}

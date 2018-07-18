@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Todos los Grupos</h1>
+
+    {% if membership_list %}
+    <ul>
+
+      {% for member in membership_list %}
+      <li>
+        {{ member.alumno }}, {{member.grupo}}, {{member.status}}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>No hay grupos.</p>
+    {% endif %}
+{% endblock %}

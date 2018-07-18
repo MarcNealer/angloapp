@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {% block title %}<title>Angloapp</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-2">
+      {% block sidebar %}
+      <ul class="sidebar-nav">
+          <li><a href="{% url 'index' %}">Inicio</a></li>
+          <br />
+          <li><b>PROSPECTOS</b></li>
+          <li><a href="{% url 'prospectos' %}">Lista de Todos Prospectos</a></li>
+          <li><a href="{% url 'prospectos-activos' %}">Prospectos Activos</a></li>
+          <li><a href="{% url 'prospectos-desinteresados' %}">Prospectos Desinteresados</a></li>
+          <li><a href="{% url 'agregar-prospecto' %}">Agregar Prospecto</a></li>
+          <br />
+          <li><b>ALUMNOS AULAS</b></li>
+          <li><a href="{% url 'alumnos' %}">Todos los Alumnos</a></li>
+          <li><a href="{% url 'nuevo-alumno' %}">Nuevo Alumno</a></li>
+          <br />
+          <li><b>GRUPOS AULAS</b></li>
+          <li><a href="{% url 'grupos' %}">Todos los Grupos</a></li>
+          <li><a href="{% url 'nuevo-grupo' %}">Nuevo Grupo</a></li>
+          <br />
+          <li><b>INSCRIPCIÓN AULAS</b></li>
+          <li><a href="{% url 'nuevo-miembro' %}">Pre-inscribir/inscribir alumno</a></li>
+      </ul>
+
+     {% endblock %}
+      </div>
+      <div class="col-sm-10 ">
+      {% block content %}{% endblock %}
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

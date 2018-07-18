@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Todos los Alumnos</h1>
+
+    <form method='GET' action='/grupos/alumnos/'>
+      <input type='text' value="{{request.GET.q}}" name='q' placeholder='Buscar alumno...'>
+    </form>
+    
+    {% if object_list %}
+    <ul>
+
+      {% for alumno in object_list %}
+      <li>
+        <a href="{{ alumno.get_absolute_url }}">{{ alumno.nombre }} {{alumno.apaterno}}</a> - {{alumno.cel}} | {% for x in alumno.membership_set.all %} {{ x.grupo.nivel }} ({{ x.status }}) | {% endfor %}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>No hay alumnos.</p>
+    {% endif %}
+{% endblock %}

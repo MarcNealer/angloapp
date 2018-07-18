@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>{{ grupo.nombre }}</h1>
+<h4><b>Fecha Inicio:</b> {{ grupo.fecha_inicio }}</h4>
+<p><b>Nivel:</b> {{ grupo.nivel }}   <b>Horario:</b> {{ grupo.horario }} <b>Salon: </b>{{ grupo.salon }}</p>
+<p><b>Idioma:</b> {{ grupo.idioma }}</p>
+<p><b>Profesor:</b> {{ grupo.members.all }}</p>
+
+<h2>Alumnos Inscritos</h2>
+<h5><i>Inscritos actualmente en este nivel <b>{{ grupo.nivel }}</b></i></h5>
+{% for x in grupo.membership_set.all %}
+{% if x.status == 'i' %}
+  <ul>
+    <li>{{ x.grupo }}, {{ x.status }}, <a href="{{ x.alumno.get_absolute_url }}">{{ x.alumno }}</a> <a class="btn btn-danger" href="{% url 'remover-miembro' x.pk %}">Remove</a></li>
+  </ul> 
+{% endif %}
+{% endfor %}
+
+
+<h2>Alumnos Pre-Inscritos</h2>
+<h5><i>Pre-inscritos para el próximo nivel <b>-NIVEL-</b> con el grupo de arriba</i></h5>
+{% for x in grupo.membership_set.all %}
+{% if x.status == 'p' %}
+<li style="padding-top:10px">{{ x.grupo }}, {{ x.status }}, <a href="{{ x.alumno.get_absolute_url }}">{{ x.alumno }}</a> <a class="btn btn-success" href="{% url 'inscribir-miembro' x.pk %}">Inscribir</a></li>
+{% endif %}
+{% endfor %}
+
+
+
+
+
+
+
+<h2>Total de alumnos para próximo nivel: (suma)</h2>
+
+{% endblock %}
