@@ -25,6 +25,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('grupos/', include('grupos.urls')),
+    path('history/', include('history.urls'))
 ]
 
 #Add URL maps to redirect the base URL to our application

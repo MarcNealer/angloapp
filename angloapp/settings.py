@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'prospectos.apps.ProspectosConfig',
     'grupos.apps.GruposConfig',
+    'history'
 ]
 
 MIDDLEWARE = [

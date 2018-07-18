@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.urls import reverse
+from history.utils import history_add
 
 class MemberCreate(CreateView):
     model = Membership
@@ -92,6 +93,7 @@ def remover(request, pk1, pk2):
     a = Alumno.objects.get(id=pk1) # get an article that matches that id and return it into  variable a
     b = Grupo.objects.get(id=pk2)
     a.grupo.remove(b)
+    history_add(b,a, 'Bajas')
 
     return HttpResponseRedirect(reverse('grupo-detail', args=(pk2,)))
     
@@ -100,6 +102,7 @@ def remover_grupo(request, pk1, pk2):
     a = Alumno.objects.get(id=pk1) # get an article that matches that id and return it into  variable a
     b = Grupo.objects.get(id=pk2)
     a.grupo.remove(b)
+    history_add(b,a, 'Bajas')
 
     return HttpResponseRedirect(reverse('alumno-detail', args=(pk1,)))
     
@@ -112,15 +115,17 @@ def remover_miembro(request, pk):
         #remueve la relacion del grupo desde el detalle del alumno y regresa a ese mismo detalle de alumno 
     m = Membership.objects.get(id=pk) # get an article that matches that id and return it into  variable a
     m.delete()
+    history_add(m.grupo, m.alumno, 'Bajas')
 
 
-    return HttpResponseRedirect(reverse('grupos'))
+    return HttpResponseRedirect(reverse('Bajas'))
     
 #Para cambiar de status 'pre-inscrito' a 'inscrito' Membership
 def inscribir(request, pk):
     m = Membership.objects.get(id=pk) # get an article that matches that id and return it into  variable a
     m.status = 'i'
     m.save() #save to the model
+    history_add(m.grupo, m.alumno, 'inscribir')
 
     return HttpResponseRedirect(reverse('grupos'))
     

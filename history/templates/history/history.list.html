@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="container-fluid" style="padding-top: 50px;">
+    <table class="table">
+        <thread>
+            <tr>
+                <td>Alumno</td>
+                <td>nombre</td>
+                <td>fecha inicio</td>
+                <td>idioma</td>
+                <td>nivel</td>
+                <td>horario</td>
+                <td>profesor</td>
+                <td>Status Change</td>
+                <td>Change date</td>
+            </tr>
+        </thread>
+        <tbody>
+        {% for rec in records %}
+            <tr>
+            <td>{{ rec.alumno.nombre }} {{ rec.alumno.apaterno }}</td>
+            <td>{{ rec.nombre }}</td>
+            <td>{{ rec.fecha_inicio }}</td>
+            <td>{{ rec.idioma.name }}</td>
+            <td>{{ rec.nivel.name }}</td>
+            <td>{{ rec.horario.name }}</td>
+            <td>{{ rec.profesor.name }}</td>
+            <td>{{ rec.status }}</td>
+            <td>{{ rec.created|date:"D d M Y"  }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

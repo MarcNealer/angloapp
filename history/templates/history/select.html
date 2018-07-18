@@ -1,0 +1,48 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+    <h2>Select History filter</h2>
+</div>
+    <div class="row">
+        <div class="col-sm">
+            <h3>All</h3>
+            <h5>Select this to show all history Records</h5><br>
+                <a href="'/history/all/" class="btn btn-info">Select</a>
+        </div>
+        <div class="col-sm">
+        <h3>Grupo</h3>
+            <form action="/history/grupo/">
+            <div class="form-group">
+            <label>Select Grupo</label>
+                <select name="grupo" id="grupo" required class="form-control">
+                    {%  for item in grupo %}
+                        <option value="{{ item }}">{{ item }}</option>
+                    {%  endfor %}
+                </select>
+            </div>
+                <button type="submit" class="btn btn-info">Select</button>
+            </form>
+        </div>
+        <div class="col-sm">
+        <h3>Alumno</h3>
+            <form action="/history/alumno/">
+                <div class="form-group">
+                    <label>Select Alumno</label>
+                    <select name="alumno" id="alumno" required class="form-control">
+                        {%  for item in alumno %}
+                            <option value="{{ item.id }}">{{ item.nombre }} {{ item.apaterno }}</option>
+                        {%  endfor %}
+                    </select>
+
+                </div>
+                <Button type="submit" class="btn btn-info">Select</Button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
