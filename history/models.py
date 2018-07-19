@@ -4,7 +4,7 @@ from grupos.models import Idioma, Nivel, Salon, Horario, Profesor, Alumno
 
 
 class History(models.Model):
-    nombre = models.CharField(max_length=100, unique=True)
+    nombre = models.CharField(max_length=100)
     fecha_inicio = models.DateField(null=True, blank=True)
     idioma = models.ForeignKey(Idioma, on_delete=models.SET_NULL, null=True)
     nivel = models.ForeignKey(Nivel, on_delete=models.SET_NULL, null=True)
