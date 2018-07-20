@@ -13,7 +13,7 @@
         <a class="dropdown-item" href="http://127.0.0.1:5050/prospectos/prospectos/">Todos</a>
     {% for idioma in idioma_list %}
       
-        <a class="dropdown-item" href="?filteri={{idioma.pk}}">{{idioma.name}}</a>         
+        <a class="dropdown-item" href="?filteri={{idioma.pk}}{% if date_filter %}&{{ date_filter }}{% endif %}">{{idioma.name}}</a>
       
     {% endfor %}  
         </div>
@@ -40,11 +40,11 @@
         
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a
-            href="?accionr=True"
+            href="?accionr=True{% if date_filter %}&{{ date_filter }}{% endif %}"
             class="dropdown-item">Acción más reciente
         </a>
         <a
-            href="?accionl=True"
+            href="?accionl=True{% if date_filter %}&{{ date_filter }}{% endif %}"
             class="dropdown-item">Acción menos reciente
         </a>
       </div>

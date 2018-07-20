@@ -32,3 +32,12 @@ history/select/ brings up the select page
 history/grupo/?gupo=****  displays history records for a given gupo name, where **** = the name
 
 history/alumno/?alumno=** displays history records for an alumno, where ** is the id number of the record
+
+
+# my contact details
+
+email: marcnealer@gmail.com or marc@willowtreesoftware.com
+
+skype: marc.stephen.nealer
+
+hangouts marcnealer@gmail.com
