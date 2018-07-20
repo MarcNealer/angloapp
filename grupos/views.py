@@ -118,7 +118,7 @@ def remover_miembro(request, pk):
     history_add(m.grupo, m.alumno, 'Bajas')
 
 
-    return HttpResponseRedirect(reverse('Bajas'))
+    return HttpResponseRedirect(reverse('grupos'))
     
 #Para cambiar de status 'pre-inscrito' a 'inscrito' Membership
 def inscribir(request, pk):
