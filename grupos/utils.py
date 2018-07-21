@@ -9,3 +9,7 @@ def migrate_grupo(old_group, new_group):
         new_rec.pk = None
         new_rec.grupo = new_grupo
         new_rec.save()
+
+
+
+

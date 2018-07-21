@@ -3,6 +3,8 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse #Used to generate URLs by reversing the URL patterns
 from django.contrib.auth.models import User #Autor de la "acción" en prospecto
 from datetime import date #creo que no es necesario para DateField
+from django.db.models.signals import post_save
+from .db_signal import save_history
 
 class Idioma(models.Model):
     """
@@ -136,4 +138,6 @@ class Membership(models.Model):
         """
         Returns the url to access a particular author instance.
         """
-        return reverse('alumno-detail', kwargs={'pk': self.pk})
+        return reverse('grupo-detail', kwargs={'pk': self.grupo.id})
+
+post_save.connect(save_history, sender=Membership)
