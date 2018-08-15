@@ -36,10 +36,31 @@ def prospecto_list_view(request):
     accion = ProspectoAccion.objects.all().order_by('-accion_date') #BUSCAR HOW TO COMBINE QUERIES FORM DIFF MODELS
     
     filteri = request.GET.get('filteri')  # Set 'qs' as a default value
-    date_filter=None
-    
-    
-    #AQUI TENGO EL PROBLEMA QUE TENGO QUE RELACIONAR qs CON accion.   
+    order_by = request.GET.get('order_by')
+    print(filteri)
+    print(order_by)
+
+    if order_by:
+        if 'None' not in order_by:
+            if order_by == 'actionr':
+                qs = qs.order_by('-prospectoaccion')
+            elif order_by == 'actionl':
+                qs = qs.order_by('prospectoaccion')
+            elif order_by == 'pub_dater':
+                qs = qs.order_by('-pub_date')
+            elif order_by == 'pub_datel':
+                qs = qs.order_by('pub_date')
+    else:
+        order_by = 'None'
+
+    if 'filteri' in request.GET:
+        if not 'None' in filteri:
+            qs = qs.filter(idioma__exact=filteri)
+    else:
+        filteri='None'
+
+    #AQUI TENGO EL PROBLEMA QUE TENGO QUE RELACIONAR qs CON accion.
+    """
     if 'accionr' in request.GET:
         qs = qs.order_by('-prospectoaccion')
         #escribir un if statement que filtre los id duplicados y solo enseñe el id de la última acción. o un for loop que solo se quede con el último item.
@@ -59,10 +80,7 @@ def prospecto_list_view(request):
         qs = qs.order_by('pub_date')
         date_filter = 'pub_datel=true'
 
-    
-    if 'filteri' in request.GET:
-        qs = qs.filter(idioma__exact=filteri)
-        
+    """
     
     
     if query is not None:
@@ -79,7 +97,7 @@ def prospecto_list_view(request):
         "object_list": qs,
         "idioma_list": idiomas,
         "filteri": filteri,
-        "date_filter" : date_filter,
+        "order_by" : order_by,
     }
     
     template = 'prospectos/prospecto_list.html'
